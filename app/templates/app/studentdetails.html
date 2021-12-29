@@ -1,0 +1,88 @@
+{% extends 'app/base.html'%}
+
+{% block body%}
+<section class="container">
+    <div class="row justify-content-around text-center mt-5">
+        <div class="col-sm-8 ">
+            <h2>CRUD Project</h2>
+        </div>
+    </div>
+
+
+
+
+    
+    
+
+{% comment %} 
+<div class="row justify-content-around mt -3">
+    <div class="col-sm-8">
+        <a href="{% url 'addstudent' %}" class="btn btn-primary float-end">Add Student</a>
+    </div>
+</div>
+<div class="row justify-content-around mt -3">
+    <div class="col-sm-8">
+        <a href="{% url 'addstudent' %}" class="btn btn-primary float-end">API View </a>
+    </div>
+</div> {% endcomment %}
+
+
+
+
+
+
+<div class="row justify-content-around text-center mt-1">
+    <div class="col-sm-8 ">
+        <form method="POST" action="/search">
+            {% csrf_token%}
+            <tr><td><input name="name"></td>
+                <td><button type="submit">Search</button></td>
+            </tr>
+        </form>
+    </div>
+</div>
+        
+        
+<div class="container mx-auto mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 10rem;">
+                <a href="{% url 'addstudent' %}" class="btn btn-primary float-end">Add Student </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 10rem;">
+                <a href="{% url 'student_detail' %}" class="btn btn-primary float-end">API View</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Age</th>
+            <th scope="col">Upadate</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stu in stu %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{stu.name}}</td>
+            <td>{{stu.address}}</td>
+            <td>{{stu.age}}</td>
+            <td><a href="{% url 'updatestudent' stu.id %}" class="btn btn-primary">Update</a></td>
+            <td><a href="{% url 'delete' stu.id %}" class="btn btn-primary">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'app/base.html'%}
+<!-- <form method = "post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type = "submit" value = "submit">
+</form> -->
+
+
+{% block body%}
+<section class="container">
+    <div class="row justify-content-around text-center mt-5">
+        <div class="col-sm-8 ">
+            <h2>CRUD Project</h2>
+        </div>
+    </div>
+<div class="row justify-content-around mt -3">
+<div class="col-sm-4">
+    <form action="" method="POST" class="bg-white p-3 rounded shadow">
+        {% csrf_token %}
+        {{form.as_p}}
+    <input type = "submit" value = "submit" class="btn btn-primary">
+    </form>
+    </div>
+    </div>
+</section>
+{% endblock %}
