@@ -36,6 +36,7 @@ urlpatterns = [
     #path('student_detail/', views.student_detail, name='student_detail'),
     path('student_detail/', views.student_list.as_view(),name='student_detail'),
     path('student_detail/<int:pk>/', views.student_detail.as_view()),
+    path('user_list/', views.user_list.as_view(),name='user_list'),
     
     
     # # Authentication Token
