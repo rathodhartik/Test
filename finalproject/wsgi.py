@@ -14,7 +14,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'finalproject.settings')
 
 application = get_wsgi_application()
-# template_name="app/password_reset.html"
-# template_name="app/password_reset_sent.html"
-# template_name="app/password_reset_form.html"
-# template_name="app/password_reset_done.html"
