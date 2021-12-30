@@ -1,13 +1,10 @@
 from copy import error
-from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http import HttpResponse,JsonResponse
 import io
-
-from userapp.serializers import UserSerializer
 from .models import Student
 from.serializers import StudentSerializer
 from rest_framework.decorators import api_view
@@ -44,8 +41,6 @@ def homepage(request):
 
 
 #CRUD API
-
-    
 class student_list(APIView):
     #permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
@@ -101,13 +96,8 @@ class student_detail(APIView):
 
     
     
-
-class user_list(APIView):
     
-    def get(self,request):
-        us = User.objects.all()
-        serializer = UserSerializer(us, many=True)
-        return Response(serializer.data)
+    
     
     
     
