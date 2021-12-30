@@ -1,10 +1,14 @@
 from django.shortcuts import render,redirect
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from userapp.serializers import UserSerializer
 from.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login,logout,update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-
+from django.contrib.auth.models import User
 
 
 # Register View
@@ -61,3 +65,15 @@ def chengpwd(request):
     return render(request,'app/chengpwd.html',context)
 
 
+
+class user_list(APIView):
+    
+    def get(self,request):
+        us = User.objects.all()
+        serializer = UserSerializer(us, many=True)
+        return Response(serializer.data)
+    
+
+
+    
+    

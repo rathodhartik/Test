@@ -5,7 +5,7 @@ class Student(models.Model):
     name=models.CharField(max_length=100)
     address=models.TextField()
     age=models.IntegerField()
-    marks=models.IntegerField()#added by rishi
+  
 
     
 
