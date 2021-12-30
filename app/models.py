@@ -6,6 +6,7 @@ class Student(models.Model):
     address=models.TextField()
     age=models.IntegerField()
 
+
     
 
     def __str__(self):
