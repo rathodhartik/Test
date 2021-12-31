@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 from .import views
 from django.contrib.auth import views as auth_views
-
+from .views import UserViewSet,ProfileViewSet
 
 urlpatterns = [
     # Register ,Login,Chenge Password , Logout
@@ -26,5 +26,8 @@ urlpatterns = [
     path('logout_view', views.logout_view, name='logout_view'),
     path('chengpwd', views.chengpwd, name='chengpwd'),
     
+    
+    path('UserViewSet',UserViewSet.as_view()),
+    path('ProfileViewSet',ProfileViewSet.as_view()),
 
 ]

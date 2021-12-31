@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Student
 
@@ -23,3 +24,8 @@ class StudentSerializer(serializers.Serializer):
       instance.age=validated_data.get('age',instance.age)
       instance.save()
       return instance
+   
+   
+   
+
+

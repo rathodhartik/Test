@@ -1,4 +1,8 @@
 from django.shortcuts import render,redirect
+from .models import Profile
+from rest_framework import generics
+from django.contrib.auth.models import User
+from .serializers import ProfileSerializer, UserSerializer
 from.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login,logout,update_session_auth_hash
@@ -61,3 +65,18 @@ def chengpwd(request):
     return render(request,'app/chengpwd.html',context)
 
 
+
+
+
+
+    
+class UserViewSet(generics.ListCreateAPIView):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+    
+    
+    
+class ProfileViewSet(generics.ListCreateAPIView):
+    queryset=Profile.objects.all()
+    serializer_class=ProfileSerializer
+    

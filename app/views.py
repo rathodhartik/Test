@@ -1,18 +1,24 @@
-from copy import error
 from django.shortcuts import render
+
+
+
+from .models import Student
+from.serializers import  StudentSerializer
+from app.utilities import *
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http import HttpResponse,JsonResponse
 import io
-from .models import Student
-from.serializers import StudentSerializer
+from copy import error
+
 from rest_framework.decorators import api_view
 
 
 
-from django.http import Http404
-from app.utilities import *
+
+
 
 from rest_framework.views import APIView
 
@@ -98,10 +104,7 @@ class student_detail(APIView):
     
     
     
-    
-    
-    
-    
+
     
     
     
