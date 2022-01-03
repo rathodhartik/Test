@@ -30,18 +30,18 @@ from rest_framework.decorators import api_view
 
 
 # Template use
-# @login_required(login_url='login_view')
-# def base1(request):
-#     return render(request,"app/base1.html")
-
+@login_required(login_url='login_view')
+def base1(request):
+    return render(request,"app/base1.html")
 
 @login_required(login_url='login_view')
 def home(request):
      return render(request,'app/home.html')
-
-
+ 
 def homepage(request):
     return render(request,'app/homepage.html')
+
+
 
 
 
@@ -100,7 +100,10 @@ class student_detail(APIView):
         return Response(deleted_data("Data successfully deleted"),status=NO_CONTENT)
 
     
-    
+
+
+
+# Nested Serializer
 class stu(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -109,12 +112,8 @@ class prof(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-    
-
-    
-    
+# Nested Serializer  
 class Stu_nested(APIView):
-    #permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         stu = Profile.objects.all()
         serializer = ProfileSerializer(stu, many=True)
