@@ -1,4 +1,8 @@
 from django.shortcuts import render,redirect
+
+from app.models import Student
+from rest_framework import generics
+from django.contrib.auth.models import User
 from.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login,logout,update_session_auth_hash
@@ -61,3 +65,10 @@ def chengpwd(request):
     return render(request,'app/chengpwd.html',context)
 
 
+
+
+
+
+    
+
+    

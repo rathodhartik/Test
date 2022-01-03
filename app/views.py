@@ -1,18 +1,22 @@
-from copy import error
+from django.contrib.auth.models import User
 from django.shortcuts import render
+
+
+from app.utilities import *
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from django.http import HttpResponse,JsonResponse
 import io
-from .models import Student
-from.serializers import StudentSerializer
-from rest_framework.decorators import api_view
+from copy import error
 
 
+from .models import Profile,Student
+from rest_framework import generics
 
-from django.http import Http404
-from app.utilities import *
+from .serializers import ProfileSerializer, StudentSerializer, UserSerializer
+
 
 from rest_framework.views import APIView
 
@@ -21,22 +25,23 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 
 
 
 # Template use
-# @login_required(login_url='login_view')
-# def base1(request):
-#     return render(request,"app/base1.html")
-
+@login_required(login_url='login_view')
+def base1(request):
+    return render(request,"app/base1.html")
 
 @login_required(login_url='login_view')
 def home(request):
      return render(request,'app/home.html')
-
-
+ 
 def homepage(request):
     return render(request,'app/homepage.html')
+
+
 
 
 
@@ -95,16 +100,31 @@ class student_detail(APIView):
         return Response(deleted_data("Data successfully deleted"),status=NO_CONTENT)
 
     
+
+
+
+# Nested Serializer
+class stu(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+class prof(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+# Nested Serializer  
+class Stu_nested(APIView):
+    def get(self, request):
+        stu = Profile.objects.all()
+        serializer = ProfileSerializer(stu, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(success_added("Data successfully inserted",serializer.data),status=CREATED)
+        return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
     
     
     
