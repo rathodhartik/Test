@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Student
+from .models import Student ,Profile
+
+
+
 
 class StudentSerializer(serializers.Serializer):
    # class Meta:
@@ -10,7 +13,8 @@ class StudentSerializer(serializers.Serializer):
    name=serializers.CharField(max_length=100)
    address=serializers.CharField(max_length=100)
    age=serializers.IntegerField()
-   
+
+
    
    # Create
    def create(self,validate_data):
@@ -24,8 +28,36 @@ class StudentSerializer(serializers.Serializer):
       instance.age=validated_data.get('age',instance.age)
       instance.save()
       return instance
+
+
+
+
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+  
+  
+   class Meta:
+      model = User
+      fields = ['username','email']
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    
+    class Meta:
+      model = Profile
+      fields = ['firstname','lastname','user']
+
+
+
+
+
+
    
    
-   
+
+
 
 

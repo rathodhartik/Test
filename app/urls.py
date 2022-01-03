@@ -5,7 +5,7 @@ from .import views
 from django.contrib.auth import views as auth_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-
+from .views import stu,prof
 
 from rest_framework_swagger.views import get_swagger_view
 
@@ -25,6 +25,10 @@ urlpatterns = [
     path('student_detail/', views.student_list.as_view(),name='student_detail'),
     path('student_detail/<int:pk>/', views.student_detail.as_view()),
     
+    path('Stu_nested/', views.Stu_nested.as_view(),name='Stu_nested'),
+    
+    path('stu',stu.as_view()),
+    path('prof',prof.as_view()),
  
 
    
