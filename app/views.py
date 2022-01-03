@@ -1,25 +1,26 @@
-from django.contrib.auth.models import User
+
 from django.shortcuts import render
 
 
 from app.utilities import *
-from django.http import Http404
+
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
+from django.http import Http404
 from django.http import HttpResponse,JsonResponse
 import io
 from copy import error
 
-
+from django.contrib.auth.models import User
 from .models import Profile,Student
-from rest_framework import generics
+
 
 from .serializers import ProfileSerializer, StudentSerializer, UserSerializer
 
 
 from rest_framework.views import APIView
-
+from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
