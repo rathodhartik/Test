@@ -16,7 +16,7 @@ schema_view = get_swagger_view(title='CRUD API')
 urlpatterns = [
     # # Base and homepage
     # path('doc',schema_view),
-    # # path('base1', views.base1, name='base1'),
+    path('base1', views.base1, name='base1'),
     path('home', views.home, name='home'),
     path('', views.homepage, name='homepage'),
     
