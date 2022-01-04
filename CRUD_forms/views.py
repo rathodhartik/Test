@@ -17,7 +17,7 @@ def studentdetails(request):
 @login_required(login_url='login_view')
 def addstudent(request):
     form=StudentForm()
-    if request.method=="POST":
+    if request.method=="POST": 
         form=StudentForm(request.POST)
         if form.is_valid():
             form.save()
