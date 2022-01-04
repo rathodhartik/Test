@@ -1,10 +1,20 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.exceptions import ValidationError
 
+
+def start_upercase(value):
+    if value[0] != 'capitalize':
+        raise ValidationError('Invalid (not capitalized) value: %(value)s',params={'value': value})
+    
+    
+    
+    
+    
 # Create your models here.
 class Student(models.Model):
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100,validators=[start_upercase])
     address=models.TextField()
     age=models.IntegerField()
 
