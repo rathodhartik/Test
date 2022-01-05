@@ -26,5 +26,6 @@ urlpatterns = [
     path('addstudent', views.addstudent, name='addstudent'),
     path('updatestudent/<int:id>/', views.updatestudent, name='updatestudent'),
     path('delete/<int:id>/', views.delete, name='delete'),
+    path('addprofile', views.addprofile, name='addprofile'),
    
 ]

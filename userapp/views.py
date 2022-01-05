@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from app.models import Student
 from rest_framework import generics
 from django.contrib.auth.models import User
-from.forms import CreateUserForm
+from.forms import SignUpForm
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login,logout,update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -13,9 +13,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 # Register View
 def register(request):
-    form = CreateUserForm()
+    form = SignUpForm()
     if request.method == "POST":
-        form = CreateUserForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             user=form.cleaned_data.get('username')

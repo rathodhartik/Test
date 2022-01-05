@@ -1,4 +1,5 @@
 
+from functools import partial
 from django.shortcuts import render
 
 
@@ -13,10 +14,10 @@ import io
 from copy import error
 
 from django.contrib.auth.models import User
-from .models import Profile,Student
+from .models import Profile,Student,Country,State,City
 
 
-from .serializers import ProfileSerializer, StudentSerializer, UserSerializer
+from .serializers import CountrySerializer, ProfileSerializer, StateSerializer, StudentSerializer, UserSerializer
 
 
 from rest_framework.views import APIView
@@ -60,9 +61,8 @@ class student_list(APIView):
             serializer.save()
             return Response(success_added("Data successfully inserted",serializer.data),status=CREATED)
         return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
-    
-    
-       
+
+
 class student_detail(APIView):
     #permission_classes = [permissions.IsAuthenticated]
     def get_object(self, pk):
@@ -70,7 +70,6 @@ class student_detail(APIView):
             return Student.objects.get(pk=pk)
         except Student.DoesNotExist:
             raise Http404
-        
 
     def get(self, request, pk ):
         stu = self.get_object(pk)
@@ -91,7 +90,6 @@ class student_detail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(update_data("Data Successfully Updated",serializer.data),status=OK)
-  
         return Response(data_fail("Update Invalid",serializer.errors),status=BAD_REQUEST)
 
 
@@ -99,6 +97,7 @@ class student_detail(APIView):
         stu = self.get_object(pk)
         stu.delete()
         return Response(deleted_data("Data successfully deleted"),status=NO_CONTENT)
+
 
     
 
@@ -126,6 +125,105 @@ class Stu_nested(APIView):
             serializer.save()
             return Response(success_added("Data successfully inserted",serializer.data),status=CREATED)
         return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
+    
+    
+    
+ ############# Country    
+class add_country(APIView):
+    def get(self,request):
+        cou=Country.objects.all()
+        serializer =CountrySerializer(cou,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer = CountrySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(success_added("Country successfully inserted",serializer.data),status=CREATED)
+        return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
+    
+class country(APIView):
+    def get_object(self,pk):
+        try:
+            return Country.objects.get(pk=pk)
+        except Country.DoesNotExist:
+            raise Http404
+        
+    def get(self,request,pk):
+        co=self.get_object(pk)
+        serializer=CountrySerializer(co)
+        return Response(serializer.data)
+    
+    def put(self,request,pk):
+        co=self.get_object(pk)
+        serializer = CountrySerializer(co,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(update_data("Country successfully updated",serializer.data),status=OK)
+        return Response(data_fail("Update Invalid",serializer.errors),status=BAD_REQUEST)
+    
+    def patch(self,request,pk):
+        co=self.get_object(pk)
+        serializer=CountrySerializer(co,data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(update_data("Country Successfully Updated",serializer.data),status=OK)
+        return Response(data_fail("Update Invalid",serializer.errors),status=BAD_REQUEST)
+    
+    def delete(self, request, pk,):
+        co = self.get_object(pk)
+        co.delete()
+        return Response(deleted_data("Country successfully deleted"),status=NO_CONTENT)   
+
+       
+############### State 
+class add_state(APIView):
+    def get(self,request):
+        st=State.objects.all()
+        serializer =StateSerializer(st,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer = StateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(success_added("Country successfully inserted",serializer.data),status=CREATED)
+        return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
+       
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

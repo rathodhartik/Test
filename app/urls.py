@@ -29,6 +29,13 @@ urlpatterns = [
     
     path('stu',stu.as_view()),
     path('prof',prof.as_view()),
+    
+    
+    path('add_country/', views.add_country.as_view(),name='add_country'),
+    path('add_country/<int:pk>/', views.country.as_view()),
+    
+    
+    path('add_state/', views.add_state.as_view(),name='add_state'),
  
 
    

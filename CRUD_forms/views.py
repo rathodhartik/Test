@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from app.forms import ProfileForm
 from app.models import Student
 from.forms import StudentForm,UpdateForm
 from django.contrib.auth.decorators import login_required
@@ -48,3 +49,12 @@ def delete(request,id):
     return redirect("studentdetails")
 
 
+def addprofile(request):
+    form=ProfileForm()
+    if request.method=="POST": 
+        form=ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("studentdetails")
+    context={"form":form}
+    return render(request,"app/add.html",context)
