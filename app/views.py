@@ -29,6 +29,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 
+from app import models
+
 
 
 # Template use
@@ -190,10 +192,29 @@ class add_state(APIView):
             return Response(success_added("Country successfully inserted",serializer.data),status=CREATED)
         return Response(data_fail("Data Invalid",serializer.errors),status=BAD_REQUEST)
        
+       
+       
+       
+       
+       
+       
+       
+# from django.views.generic import ListView, CreateView, UpdateView
+# from django.urls import reverse_lazy
+
+# class ProfileListView(ListView):
+#     model = Profile
+#     context_object_name = 'people'
     
+# class ProfileCreateView(CreateView):
+#     model = Profile
+#     fields=['firstname','lastname','age','gender','country','state','city','user']
+#     success_url = reverse_lazy('person_changelist')
     
-    
-    
+# class PersonUpdateView(UpdateView):
+#     model = Profile
+#     fields=['firstname','lastname','age','gender','country','state','city','user']
+#     success_url = reverse_lazy('person_changelist')
     
     
     

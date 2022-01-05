@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Country, State, Student ,Profile
+from .models import City, Country, State, Student ,Profile
 from app import models
 
 
@@ -52,9 +52,21 @@ class StateSerializer(serializers.Serializer):
    def update(self, instance, validated_data):
       instance.state=validated_data.get('state',instance.state)
       instance.country=validated_data.get('country',instance.country)
+      instance.save()
       return instance
 
-
+class CitySerializer(serializers.Serializer):
+   city=serializers.CharField(max_length=20)
+   state=serializers.CharField(max_length=20)
+      
+   def create(self,validate_data):
+      return City.objects.create(**validate_data)
+   
+   def update(self, instance, validated_data):
+      instance.city=validated_data.get('city',instance.city)
+      instance.state=validated_data.get('state',instance.state)
+      instance.save()
+      return instance
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -65,9 +77,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    country =CountrySerializer()
+    state = StateSerializer()
+    city = CitySerializer()
+   
     class Meta:
       model = Profile
-      fields = ['firstname','lastname','user']
+      fields=['firstname','lastname','age','gender','country','state','city','user']
+      
+      
+    def create(self,validate_data):
+      return Profile.objects.create(**validate_data)
 
 
 

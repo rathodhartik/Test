@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from app.models import Profile
+from app.models import City, Profile
 
 
 
@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model =Profile
         fields=['firstname','lastname','age','gender','country','state','city','user']
-    
+        
     
     def clean(self):
         firstname = self.cleaned_data['firstname']

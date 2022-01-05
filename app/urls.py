@@ -37,9 +37,10 @@ urlpatterns = [
     
     path('add_state/', views.add_state.as_view(),name='add_state'),
  
-
+  
    
 
+  
   
     
 
