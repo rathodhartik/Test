@@ -22,10 +22,18 @@ from .import views
 urlpatterns = [
     
     #CRUD with Forms
+    
+    # View Student data
     path('studentdetails', views.studentdetails, name='studentdetails'),
+    
+    # Add Student data
     path('addstudent', views.addstudent, name='addstudent'),
+    
+    # Update Student data
     path('updatestudent/<int:id>/', views.updatestudent, name='updatestudent'),
+    
+    # Delete Student data
     path('delete/<int:id>/', views.delete, name='delete'),
-    path('addprofile', views.addprofile, name='addprofile'),
+    
    
 ]

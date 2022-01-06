@@ -1,17 +1,14 @@
 from django.contrib.auth.models import User
 from django.db.models import fields
 from rest_framework import serializers
-from .models import City, Country, State, Student ,Profile
+from .models import City, Country, Student ,Profile
 from app import models
+from django.core.exceptions import ValidationError
 
 
 
-
+# StudentSerializer
 class StudentSerializer(serializers.Serializer):
-   # class Meta:
-   #    model = Student
-   #    fields = "__all__"
-   #id=serializers.IntegerField() 
    name=serializers.CharField(max_length=100)
    address=serializers.CharField(max_length=100)
    age=serializers.IntegerField()
@@ -29,61 +26,59 @@ class StudentSerializer(serializers.Serializer):
       return instance
 
 
-class CountrySerializer(serializers.Serializer):
-   country=serializers.CharField(max_length=20)
+# CountrySerializer
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+      model = Country
+      fields = '__all__'
       
-   def create(self,validate_data):
-      return Country.objects.create(**validate_data)
+      def create(self,validate_data):
+         return Country.objects.create(**validate_data)
+      def update(self, instance, validated_data):
+         instance.name=validated_data.get('name',instance.name)
+         instance.save()
+         return instance
    
-   def update(self, instance, validated_data):
-      instance.country=validated_data.get('country',instance.country)
-      instance.save()
-      return instance
-   
-   
-
-class StateSerializer(serializers.Serializer):
-   state=serializers.CharField(max_length=20)
-   country=serializers.CharField(max_length=20)
+# CitySerializer
+class CitySerializer(serializers.ModelSerializer):
+   class Meta:
+      model = City
+      fields = '__all__'
       
-   def create(self,validate_data):
-      return State.objects.create(**validate_data)
+   def create(self, validated_data):
+      country = Country.objects.get(name=validated_data['country'])
+      validated_data['country'] = country
+      city_instance = City.objects.create(**validated_data)
+      print(city_instance)
+      return city_instance
    
-   def update(self, instance, validated_data):
-      instance.state=validated_data.get('state',instance.state)
-      instance.country=validated_data.get('country',instance.country)
-      instance.save()
-      return instance
-
-class CitySerializer(serializers.Serializer):
-   city=serializers.CharField(max_length=20)
-   state=serializers.CharField(max_length=20)
+   # def validate(self,data):
+   #    name = data['name']
+   #    city =City.objects.filter(name__iexact=name)
+   #    if city.exists():
+   #       raise ValidationError("taken name")   
+   
       
-   def create(self,validate_data):
-      return City.objects.create(**validate_data)
-   
-   def update(self, instance, validated_data):
-      instance.city=validated_data.get('city',instance.city)
-      instance.state=validated_data.get('state',instance.state)
-      instance.save()
-      return instance
 
 
+
+# UserSerializer
 class UserSerializer(serializers.ModelSerializer):
    class Meta:
       model = User
       fields = ['username','email']
+      
+      
 
-
+# ProfileSerializer
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     country =CountrySerializer()
-    state = StateSerializer()
     city = CitySerializer()
    
     class Meta:
       model = Profile
-      fields=['firstname','lastname','age','gender','country','state','city','user']
+      fields="__all__"
       
       
     def create(self,validate_data):

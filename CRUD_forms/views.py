@@ -49,12 +49,12 @@ def delete(request,id):
     return redirect("studentdetails")
 
 
-def addprofile(request):
-    form=ProfileForm()
-    if request.method=="POST": 
-        form=ProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("studentdetails")
-    context={"form":form}
-    return render(request,"app/add.html",context)
+# def addprofile(request):
+#     form=ProfileForm()
+#     if request.method=="POST": 
+#         form=ProfileForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("studentdetails")
+#     context={"form":form}
+#     return render(request,"app/home1.html",context)

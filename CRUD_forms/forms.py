@@ -4,7 +4,7 @@ from app.models import Student
 
 
 
-
+# Student Form
 class StudentForm(forms.ModelForm):
     class Meta:
         model=Student
@@ -15,14 +15,7 @@ class StudentForm(forms.ModelForm):
             'age':forms.TextInput(attrs={'class':'form-control'}),
             
         }
-    # def clean(self):
-    #     age=self.cleaned_data['age']
-    #     if age < 100:
-    #          raise forms.ValidationError("Age not valid")
-    
-
-        
-
+# Student Update Form
 class UpdateForm(forms.ModelForm):
     class Meta:
         model=Student
